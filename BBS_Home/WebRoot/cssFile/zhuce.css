@@ -1,0 +1,37 @@
+body{
+            font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
+              color: #404040;
+              background:rgb(2,163,136);
+        }
+        input{
+                border: 1px solid #ccc; 
+                padding: 7px 0px;
+                border-radius: 3px; 
+                padding-left:5px; 
+                width:440px;
+                height:20px;
+            }
+
+        .d1-tog{
+            width: 800px;
+            height: 900px;
+            background-color:white;
+            margin: 0 auto;
+            text-align: center;
+            margin-top:100px;
+             border:1px solid #ccc;  
+            max-width:650px;  
+            min-width:544px;  
+            -moz-border-radius:20px;  
+            -webkit-border-radius:20px;  
+            border-radius:20px; 
+        }
+
+        .d2-part1logo{
+            width:236px;
+            height:64px;
+            background-image:url(image/icon2.jpg);
+            float: left;
+            margin-top:-80px;
+            margin-left: 950px;
+        }
