@@ -7,15 +7,42 @@
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>insertTopic</servlet-name>
-    <servlet-class>bbs.insertTopic</servlet-class>
+    <servlet-class>bbs.serverlet.insertTopic</servlet-class>
   </servlet>
   
 	<servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>loginSer</servlet-name>
-    <servlet-class>bbs.loginSer</servlet-class>
+    <servlet-class>bbs.serverlet.loginSer</servlet-class>
   </servlet>
+  
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>indexSer</servlet-name>
+    <servlet-class>bbs.serverlet.indexSer</servlet-class>
+  </servlet>
+  
+    <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>detailsSer</servlet-name>
+    <servlet-class>bbs.serverlet.detailsSer</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>replySer</servlet-name>
+    <servlet-class>bbs.serverlet.replySer</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>insertReplySer</servlet-name>
+    <servlet-class>bbs.serverlet.insertReplySer</servlet-class>
+  </servlet>
+
   
   <servlet-mapping>
     <servlet-name>insertTopic</servlet-name>
@@ -26,5 +53,23 @@
 	    <servlet-name>loginSer</servlet-name>
 	    <url-pattern>/loginSer</url-pattern>
 	  </servlet-mapping>
+	  
+  <servlet-mapping>
+    <servlet-name>indexSer</servlet-name>
+    <url-pattern>/indexSer</url-pattern>
+  </servlet-mapping>
+
+   <servlet-mapping>
+    <servlet-name>detailsSer</servlet-name>
+    <url-pattern>/detailsSer</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>replySer</servlet-name>
+    <url-pattern>/replySer</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>insertReplySer</servlet-name>
+    <url-pattern>/insertReplySer</url-pattern>
+  </servlet-mapping>
 
 </web-app>
