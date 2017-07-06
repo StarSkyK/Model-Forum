@@ -38,10 +38,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function allvalue() {
 		telephone();
 		if (teleflag==true) {
-			alert("账号格式输入正确");
+			//alert("账号格式输入正确");
 			return true;
 		}else {
-			alert("账号格式输入有误！+++++++");  
+			alert("账号格式输入有误！");  
 			return false;
 		}
 	}
@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  <form action="loginSer" method="post">
+  <form action="loginSer?typeID=1" method="post">
     <div class="container">
     	
     		<div class="login">
@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		
     	<div class="login-help">
-      		<p>没有账号？ <a href="test.jsp">点击注册</a></p>
+      		<p>没有账号？ <a href="regist.jsp">点击注册</a></p>
     	</div>
    </div>
   </form>

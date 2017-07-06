@@ -3,6 +3,8 @@ package bbs.serverlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.DriverManager;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,51 +36,58 @@ public class insertTopic extends HttpServlet {
 	public static void LoadMySQL() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			System.out.println("Á¬½ÓÊı¾İ¿â³É¹¦");
+			System.out.println("æ•°æ®åº“è¿æ¥æˆåŠŸ");
 		} catch (Exception e) {}
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//¼ÓÔØÊı¾İ¿â
+		//åŠ è½½æ•°æ®åº“
 		LoadMySQL();
+		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		//´´½¨Ä£ĞÍ1
+		//åˆå§‹åŒ–æ¨¡å‹
 		TopicModel tpModel =new TopicModel();
-	
-		
-		//Ä£ĞÍ2 »ñÈ¡session
+		//è·å–session
 		HttpSession session =request.getSession();
 		loginModel mmmd =(loginModel) session.getAttribute("login");
 		
+//		if (mmmd==null) {
+//			response.setContentType("text/html;charset=gb2312");
+//			response.getWriter().print("<script language='javascript'>alert('æ‚¨æœªç™»å½•ï¼Œè¯·ç™»å½•');</script>");
+//			response.setHeader("refresh", "0.1;login.jsp");
+//			return;
+//		}
 		try {
 			String uri = "jdbc:mysql://localhost:3306/jsp_test?useSSL=true";
 			String user="root";
-			String password ="abc110";
+			String password ="312312";
 	     	Connection con=(Connection) DriverManager.getConnection(uri,user,password);
 	     	
 	     	String title =request.getParameter("title");
 	     	String content =request.getParameter("content");
 	     	String userID =mmmd.getUserID();
 	     	String userName =mmmd.getuserName();
-	    	//»ñÈ¡Ìû×ÓÀàĞÍ
+	    	//è·å–é€‰é¡¹
 			String select =request.getParameter("select");
-			
-	     	String sql="INSERT INTO announces(UserID,title,content,userName,type) VALUES(?,?,?,?,?)";
+			//è·å–æ—¶é—´
+			String time =getTime();
+	     	String sql="INSERT INTO announces(UserID,title,content,userName,type,announcesTime) VALUES(?,?,?,?,?,?)";
 	     	PreparedStatement st=(PreparedStatement) con.prepareStatement(sql);
 	     	st.setString(1,userID);
 			st.setString(2,title );
 			st.setString(3,content);
 			st.setString(4,userName);
 			st.setString(5,select);
+			st.setString(6,time);
 			st.execute();
 			
 			request.setAttribute("TopicModel", tpModel);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("detailsSer");
 			dispatcher.forward(request, response);
-			
+			return;
 	     	
 		} catch (Exception e) {
 			System.out.println(e);
@@ -88,5 +97,11 @@ public class insertTopic extends HttpServlet {
 	public void init() throws ServletException {
 		// Put your code here
 	}
-
+	//è·å–æ—¶é—´
+	public static String getTime() {
+		
+		SimpleDateFormat dFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return dFormat.format(new Date()).toString();
+		
+	}
 }

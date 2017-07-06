@@ -63,4 +63,5 @@ public class detailsModel {
 	public void setAnnouncesTime(String announcesTime) {
 		this.announcesTime = announcesTime;
 	}
+	
 }

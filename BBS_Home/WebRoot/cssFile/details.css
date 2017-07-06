@@ -1,0 +1,291 @@
+* {
+ word-wrap:break-word;
+}
+body {
+ /* background:#F5FAEB;*/
+background:#333333;
+}
+body,input,button,select,textarea {
+ font:15px/1.8 微软雅黑;
+ color:#000000;
+}
+textarea {
+ resize:none;
+}
+
+table {
+ empty-cells:show;
+ border-collapse:collapse;
+  border-spacing:0;
+}
+
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td {
+ margin:0;
+ padding:0;
+}
+body,button,input,select,textarea {
+ font:14px/1.5 Tahoma,Helvetica,"Microsoft YaHei","微软雅黑","Microsoft JhengHei","STHeiti,MingLiu";
+}
+
+
+a {
+ color:#333;
+ text-decoration:none;
+  -webkit-tap-highlight-color:transparent;
+ outline:0;
+}
+a:hover {
+ text-decoration:underline;
+}
+a img {
+ border:none;
+}
+
+
+
+
+img {
+ border:0;
+ -webkit-tap-highlight-color:transparent;
+ outline:0;
+}
+
+
+
+html {
+ overflow-y:scroll;
+}
+input[type=button] {
+ -webkit-appearance:button;
+}
+.clearfix:after {
+ visibility:hidden;
+ display:block;
+ font-size:0;
+ content:" ";
+ clear:both;
+ height:0;
+}
+.clearfix {
+ display:inline-table;
+}
+* html .clearfix {
+ height:1%;
+}
+.clearfix {
+ display:block;
+}
+
+.fl1 {
+ float:left;
+}
+.fr1 {
+ float:right;
+}
+
+.wrap1200 {
+ width:1200px;
+ margin:0px auto;
+}
+.top {
+ width:100%;
+ height:40px;
+ background:#656565;
+ color:#fff;
+ overflow:hidden;
+ z-index: 29;
+}
+
+.toplinkl span a:hover{
+	color: white;
+	text-decoration: none;
+}
+.toplinkr a {
+ color:#cccccc;
+}
+.user a {
+ color:#cccccc;
+}
+.user1 a{
+	color:white;
+}
+.top .toplinkl .user {
+	
+ display:inline-block;
+ width:auto;
+ height:40px;
+ line-height:40px;
+ border:1px solid #737373;
+ border-top:none;
+ border-bottom:none;
+ border-right:none;
+ padding:0px 1.3em;
+ /*background:url(http://www.5imx.com/template/5imx2015/styletop-icon1.png) no-repeat scroll 1em center;*/
+ text-indent:25px;
+}
+
+.top .toplinkl .user1 {
+ display:inline-block;
+ width:auto;
+ height:40px;
+ line-height:40px;
+ border:1px solid #737373;
+ border-top:none;
+ border-bottom:none;
+ 
+ padding:0px 1.3em;
+ /*background:url(http://www.5imx.com/template/5imx2015/styletop-icon1.png) no-repeat scroll 1em center;*/
+ text-indent:25px;
+}
+.top .toplinkl .user b {
+ display:inline-block;
+ width:12px;
+ height:40px;
+ line-height:40px;
+ /*background:url(http://www.5imx.com/template/5imx2015/styletop-icon11.png) no-repeat scroll right center;*/
+}
+.top .toplinkr {
+ border-left:1px solid #737373;
+}
+.top .toplinkr span {
+ border-right:1px solid #737373;
+ display:inline-block;
+ padding:0px 1.3em;
+ height:40px;
+ line-height:40px;
+ width:auto;
+ text-indent:25px;
+}
+
+.top .toplinkuser {
+ margin-left:0%;
+}
+.toplinkr span a:hover{
+	color: white;
+	text-decoration: none;
+}
+
+.search{
+	
+	position: absolute;
+	top:55px;
+	left:45%;
+	
+}
+.search {
+    padding: 0px;
+    border: none;
+    width: 232px;
+    background:#e0e0e0;
+}
+ 
+.search:hover {
+    background: #a8a8a8;
+}
+.search input {
+    border: none;
+    float: left;
+}
+.search input.box {
+    height: 28px;
+    width: 200;
+    margin-right: 0px;
+    padding-right: 0px;
+    
+    background: #e0e0e0;
+    margin: 1px;
+}
+.search input.box:focus {
+    background: #e8e8e8 ;
+    outline: none;
+}
+.btn{
+	margin-top:4px;
+	border:none;
+	background:none;
+}
+
+
+.detail{
+	width:1150px;
+	background-color:white;
+	
+}
+
+.detail .tr1{
+	border:2px solid #737373;
+	border-left:none;
+	border-right:none;
+	border-top:none;
+	line-height:50px;
+	padding-left:60px;
+}
+.time{
+	float:right;
+	position:relative;
+	padding-right:60px;
+	padding-top:158px;
+	font-size:15px;
+	color:#c5c3c3;
+}
+.pl{
+	
+	position:relative;
+	padding-left:460px;
+	padding-top:136px;
+	font-size:15px;
+	
+}
+.pl a{
+	color:#227fe7;
+}
+.pl a:hover{
+	text-decoration: none;
+}
+
+#title{
+	font-size:23px;
+}
+.holder{
+	
+	margin-top:0px;
+	
+	padding-top:10px;
+	line-height:40px;
+}
+.holder tr{
+	border:none;
+}
+.floor{
+	background:rgba(239,236,237,0.6);
+	margin-left:20px;
+	
+	
+}
+.floor .text{
+	
+	opacity:1.0;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=black,endColorstr=black);
+	
+	padding-left:30px;
+}
+hr{
+	width:95%;
+	padding-left:30px;
+	color:rgba(239,235,236,0.5);
+}
+.noborder{
+	border:none;	
+	
+}
+
+.topic{
+	
+	width:100%;
+}
+
+.reply{
+	position:relative;
+	margin-bottom:0px;
+	
+}

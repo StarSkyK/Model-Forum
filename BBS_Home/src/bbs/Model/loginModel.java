@@ -3,6 +3,8 @@ package bbs.Model;
 public class loginModel {
 	String login;
 	String userID;
+
+	
 	
 	public void setUserID(String userID) {
 		this.userID = userID;

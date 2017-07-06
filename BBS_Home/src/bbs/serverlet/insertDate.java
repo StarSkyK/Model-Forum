@@ -2,6 +2,8 @@ package bbs.serverlet;
 
 import java.io.IOException;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -10,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bbs.Model.linkModel;
 
@@ -54,12 +57,10 @@ public class insertDate extends HttpServlet {
 			try {
 				String uri = "jdbc:mysql://localhost:3306/jsp_test?useSSL=true";
 				String user="root";
-				String password ="abc110";
-		     	Connection con=(Connection) DriverManager.getConnection(uri,user,password);
+				String pwdd ="312312";
+		     	Connection con=(Connection) DriverManager.getConnection(uri,user,pwdd);
 		     	//模型
 		     	linkModel linkModel =new linkModel();
-		     	
-		     	
 		     	String timeString =getTime();//获取系统时间		     	
 		     	String phoneNum =request.getParameter("phoneNum") ;
 		     	String userName =request.getParameter("userName").toString();
@@ -69,30 +70,35 @@ public class insertDate extends HttpServlet {
 		     	String address =request.getParameter("address").toString();
 		     	String show =request.getParameter("show").toString();
 		     	
-		     	linkModel.setPhoneNum(phoneNum);
-		     	linkModel.setUserName(userName);
-		     	linkModel.setPassword(password);
-		     	linkModel.setSex(sex);
-		     	linkModel.setBirthday(birthday);
-		     	linkModel.setAddress(address);
-		     	linkModel.setShow(show);
-		     	
-		     	String sql="INSERT INTO users(UserID,UserName,UserPwd,UserSex,UserBirth,UserPro,User_show,User_time) VALUES(?,?,?,?,?,?,?,?)";
-		     	PreparedStatement st=(PreparedStatement) con.prepareStatement(sql);
-		     	
-		     	st.setString(1,linkModel.getPhoneNum());
-				st.setString(2,linkModel.getUserName() );
-				st.setString(3,linkModel.getPassword());
-				st.setString(4,linkModel.getSex());
-				st.setString(5,linkModel.getBirthday());
-				st.setString(6,linkModel.getAddress());
-				st.setString(7,linkModel.getShow());
-				st.setString(8,timeString);
-				st.execute();
-				request.setAttribute("linkModel", linkModel);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-				dispatcher.forward(request, response);
-				
+		     	Statement statement =(Statement)con.createStatement();
+				ResultSet rs = statement.executeQuery("select * from jsp_test.users where userID ="+phoneNum);
+				if (rs.next()) {
+					if (rs.getString("userID").toString()!=null) {
+						
+						response.setContentType("text/html;charset=gb2312");
+						response.getWriter().print("<script language='javascript'>alert('用户ID已被占用!');</script>");
+						response.setHeader("refresh", "0.1;regist.jsp");
+					}
+				}else {
+					String sql="INSERT INTO users(UserID,UserName,UserPwd,UserSex,UserBirth,UserPro,User_show,User_time) VALUES(?,?,?,?,?,?,?,?)";
+			     	PreparedStatement st=(PreparedStatement) con.prepareStatement(sql);
+			     	
+			     	st.setString(1,phoneNum);
+					st.setString(2,userName );
+					st.setString(3,pwd);
+					st.setString(4,sex);
+					st.setString(5,birthday);
+					st.setString(6,address);
+					st.setString(7,show);
+					st.setString(8,timeString);
+					st.execute();
+					
+					System.out.println("data 不存在");
+					request.setAttribute("linkModel", linkModel);
+					RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+					dispatcher.forward(request, response);
+					return;
+				}
 			} catch (Exception e) {
 				System.out.println(e);
 			}

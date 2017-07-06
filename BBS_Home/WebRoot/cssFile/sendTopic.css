@@ -1,0 +1,56 @@
+body{
+        font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
+        color: #404040;
+        /*background:rgb(2,163,136);*/
+        background:#333333;
+}
+
+.d1-tog{
+    width: 1200px;
+    height: 700px;
+    background-color:white;
+    margin: 0px auto;
+    /*text-align: center;*/
+    margin-top:100px;
+    border:1px solid #ccc;  
+    max-width:850px;  
+    min-width:544px;  
+    -moz-border-radius:20px;  
+    -webkit-border-radius:20px;  
+    border-radius:30px;
+    padding-left:150px; 
+}
+
+td,.tog{
+	font-size:20px;
+	line-height:30px;
+}
+
+option{
+	font-size:17px;
+}
+input:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px
+        rgba(102, 175, 233, .6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px
+        rgba(102, 175, 233, .6)
+}
+textarea:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px
+        rgba(102, 175, 233, .6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px
+        rgba(102, 175, 233, .6)
+}
+select:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px
+        rgba(102, 175, 233, .6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px
+        rgba(102, 175, 233, .6)
+}
+

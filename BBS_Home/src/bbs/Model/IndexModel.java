@@ -1,7 +1,7 @@
 package bbs.Model;
 
 public class IndexModel {
-	String tpoicID;
+	String topicID;
 	String userID;
 	String title;
 	String content;
@@ -21,11 +21,11 @@ public class IndexModel {
 	public String getTitle() {
 		return title;
 	}
-	public void setTpoicID(String tpoicID) {
-		this.tpoicID = tpoicID;
+	public void setTopicID(String topicID) {
+		this.topicID = topicID;
 	}
-	public String getTpoicID() {
-		return tpoicID;
+	public String getTopicID() {
+		return topicID;
 	}
 	public void setType(String type) {
 		this.type = type;

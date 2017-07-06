@@ -6,7 +6,9 @@ import java.io.PrintWriter;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.RequestDispatcher;
@@ -20,6 +22,11 @@ import com.mysql.jdbc.Connection;
 //import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 
+
+
+
+import bbs.Model.detailsModel;
+import bbs.Model.loginModel;
 import bbs.Model.replyModel;
 
 public class replySer extends HttpServlet {
@@ -39,79 +46,99 @@ public class replySer extends HttpServlet {
 		// Put your code here
 	}
 
-	/**
-	 * The doGet method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to get.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
-	 */
+
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the GET method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+		load();
+		try {
+			
+			detailsModel model =(detailsModel)request.getAttribute("detailsM");
+			
+			System.out.println("++ replySer get++");
+			
+//			System.out.println(request.getParameter(""));
+			String uriString ="jdbc:mysql://localhost:3306/jsp_test?useSSL=true&characterEncoding=utf8";
+			String userString ="root";
+			String password ="312312";
+			Connection connection = (Connection) DriverManager.getConnection(uriString, userString, password);
+			
+			String topicID= model.getTopicID().toString();
+			System.out.println(topicID);
+			
+			Statement sql =(Statement) connection.createStatement();
+			ResultSet rs = sql.executeQuery("select * from jsp_test.reply where topicID ="+topicID);
+			
+			ArrayList<Object> list = new ArrayList<Object>();
+			
+			while (rs.next()) {
+				System.out.println("===== : "+rs.getString("userID"));
+				System.out.println("===== : "+rs.getString("content"));
+				System.out.println("===== : "+rs.getString("userName"));
+				
+				replyModel replyM = new replyModel();
+				
+				replyM.setReplyID(rs.getString("replyID"));
+				System.out.println("1");
+				replyM.setUserName(rs.getString("userName"));
+				System.out.println("2");
+				replyM.setUserID(rs.getString("userID"));
+				System.out.println("3");
+				replyM.setContent(rs.getString("content"));
+				System.out.println("4");
+				replyM.setReplyTime(rs.getString("replyTime"));
+				System.out.println("5");
+				replyM.setTopicID(rs.getString("topicID"));
+				System.out.println("6");
+				list.add(replyM);
+				
+				System.out.println("while ->");
+			}
+			
+			System.out.println("while end ===");	
+			request.setAttribute("replyList", list);
+			request.setAttribute("topicID", topicID);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("details_test.jsp");
+			System.out.print("cross銆�fire");
+			dispatcher.forward(request, response);
+			return;
+		} catch (Exception e) {
+		}
+		
+		
 	}
 
-	/**
-	 * The doPost method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to post.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
-	 */
 	public static void load() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			System.out.println("++++++++1");
+//			System.out.println("++++++++1");
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 			load();
-			
+			request.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("UTF-8");
 			try {
-				HttpSession session = request.getSession();
 				
-				System.out.println("++ replySer ++");
-//				replyModel replyM = new replyModel();
+				detailsModel model =(detailsModel)request.getAttribute("detailsM");
+				
+				System.out.println("++ replySer post++");
 				
 				String uriString ="jdbc:mysql://localhost:3306/jsp_test?useSSL=true";
 				String userString ="root";
-				String password ="abc110";
+				String password ="312312";
 				Connection connection = (Connection) DriverManager.getConnection(uriString, userString, password);
 				
-				// topicID
-				String s = "2";
+				String topicID= model.getTopicID().toString();
+				System.out.println(topicID);
 				
 				Statement sql =(Statement) connection.createStatement();
-				
-				// 查看相同的topicID有多少条：
-//				ResultSet rsCount = sql.executeQuery("select count(*) from jsp_test.reply where topicID ="+s);
-//				rsCount.next();
-//				String i = rsCount.getString("count(*)");
-//				System.out.println("查看相同的topicID有多少条:"+i);
-				
-				ResultSet rs = sql.executeQuery("select * from jsp_test.reply where topicID ="+s);
+				ResultSet rs = sql.executeQuery("select * from jsp_test.reply where topicID ="+topicID);
 				
 				ArrayList<Object> list = new ArrayList<Object>();
 				
@@ -124,45 +151,26 @@ public class replySer extends HttpServlet {
 					
 					replyM.setUserName(rs.getString("userName"));
 					replyM.setUserID(rs.getString("userID"));
-					replyM.setContent(rs.getNString("content"));
-//					replyM.setReplyTime(rs.getNString("replyTime"));
+					replyM.setContent(rs.getString("content"));
+					replyM.setReplyTime(rs.getString("replyTime"));
+					replyM.setTopicID(rs.getString("topicID"));
 					list.add(replyM);
 					
 					System.out.println("while ->");
 				}
 				
-				System.out.println("while end ===");
-				
-//				detailsM.setTitle(rs.getString("title"));
-//				detailsM.setUserName(rs.getString("userName"));
-//				detailsM.setUserID(rs.getString("userID"));
-//				detailsM.setTopicID(rs.getString("topicID"));
-//				detailsM.setContent(rs.getString("content"));
-//				detailsM.setType(rs.getString("type"));
-				
-//				System.out.println("===== : "+rs.getString("userID"));
-//				System.out.println("===== : "+rs.getString("content"));
-//				System.out.println("===== : "+rs.getString("userName"));
-				
+				System.out.println("while end ===");	
 				request.setAttribute("replyList", list);
+				request.setAttribute("topicID", topicID);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("details_test.jsp");
 				dispatcher.forward(request, response);
-				
-				
+				return;
 			} catch (Exception e) {
-				// TODO: handle exception
-				
 			}
 		
 	}
 
-	/**
-	 * Initialization of the servlet. <br>
-	 *
-	 * @throws ServletException if an error occurs
-	 */
 	public void init() throws ServletException {
-		// Put your code here
 	}
-
+	
 }

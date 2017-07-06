@@ -4,6 +4,7 @@ public class TopicModel {
 	String title;
 	String type;
 	String content;
+	String topicID;
 	
 	public String getTitle() {
 		return title;
@@ -22,5 +23,11 @@ public class TopicModel {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getTopicID() {
+		return topicID;
+	}
+	public void setTopicID(String topicID) {
+		this.topicID = topicID;
 	}
 }

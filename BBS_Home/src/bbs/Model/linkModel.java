@@ -8,6 +8,13 @@ public class linkModel {
 	String birthday;
 	String address;
 	String show;
+	String ifNUll;
+	public String getIfNUll() {
+		return ifNUll;
+	}
+	public void setIfNUll(String ifNUll) {
+		this.ifNUll = ifNUll;
+	}
 	
 	public void setPhoneNum(String phoneNum){
 		this.phoneNum =phoneNum;

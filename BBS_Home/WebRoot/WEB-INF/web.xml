@@ -43,6 +43,19 @@
     <servlet-class>bbs.serverlet.insertReplySer</servlet-class>
   </servlet>
 
+ <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>insertDate</servlet-name>
+    <servlet-class>bbs.serverlet.insertDate</servlet-class>
+  </servlet>
+  
+   <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>commentSer</servlet-name>
+    <servlet-class>bbs.serverlet.commentSer</servlet-class>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>insertTopic</servlet-name>
@@ -71,5 +84,18 @@
     <servlet-name>insertReplySer</servlet-name>
     <url-pattern>/insertReplySer</url-pattern>
   </servlet-mapping>
+
+ <servlet-mapping>
+    <servlet-name>insertDate</servlet-name>
+    <url-pattern>/insertDate</url-pattern>
+  </servlet-mapping>
+
+<servlet-mapping>
+    <servlet-name>commentSer</servlet-name>
+    <url-pattern>/commentSer</url-pattern>
+  </servlet-mapping>
+
+
+
 
 </web-app>

@@ -17,126 +17,157 @@ import com.mysql.jdbc.Connection;
 
 
 
+
+
+import bbs.Model.TopicModel;
 import bbs.Model.detailsModel;
+import bbs.Model.loginModel;
 
 public class detailsSer extends HttpServlet {
 
-	/**
-	 * Constructor of the object.
-	 */
 	public detailsSer() {
 		super();
 	}
-
-	/**
-	 * Destruction of the servlet. <br>
-	 */
+	
 	public void destroy() {
-		super.destroy(); // Just puts "destroy" string in log
-		// Put your code here
+		super.destroy();
 	}
+	
+	
 
-	/**
-	 * The doGet method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to get.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
-	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the GET method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+
+		load();
+		try {
+			
+			System.out.println("++++details get++++2");
+			
+			
+			String uriString ="jdbc:mysql://localhost:3306/jsp_test?useSSL=true";
+			String userString ="root";
+			String password ="312312";
+			Connection connection = (Connection) DriverManager.getConnection(uriString, userString, password);
+			HttpSession session =request.getSession();
+			loginModel mmmd =(loginModel) session.getAttribute("login");
+			
+			detailsModel model = (detailsModel)request.getAttribute("model");
+			//第一遍从首页进来需要getparameter中topicid，第二遍从commentser中model获取
+			String topicID =request.getParameter("topicID");
+			if (topicID==null) {
+				topicID =model.getTopicID().toString();
+			}
+
+			System.out.println("get--topicID==="+topicID);
+			Statement sql =(Statement) connection.createStatement();
+			ResultSet rs2 = sql.executeQuery("select * from jsp_test.announces where topicID ="+topicID);
+			detailsModel detailsM = new detailsModel();
+			if (rs2.next()) {
+				session.setAttribute("detailsS", detailsM);
+				detailsM.setTitle(rs2.getString("title"));
+				detailsM.setUserName(rs2.getString("userName"));
+				detailsM.setUserID(rs2.getString("userID"));
+				detailsM.setTopicID(topicID);
+				detailsM.setContent(rs2.getString("content"));
+				detailsM.setType(rs2.getString("type"));
+				detailsM.setAnnouncesTime(rs2.getString("announcesTime").toString());
+				request.setAttribute("detailsM", detailsM);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("replySer");
+				dispatcher.forward(request, response);
+				return;
+			}else {
+				System.err.println("data 不存在");
+				System.out.println("get===== : "+rs2.getString("title"));
+				System.out.println("get===== : "+rs2.getString("content"));
+				System.out.println("get===== : "+rs2.getString("announcesTime"));
+				request.setAttribute("detailsM", detailsM);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("replySer");
+				dispatcher.forward(request, response);
+				return;
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
-	/**
-	 * The doPost method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to post.
-	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
-	 */
-	
+
 	public static void load() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			System.out.println("++++++++1");
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// ¥��������
+	
 		load();
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		try {
 			
-			HttpSession session = request.getSession();
-			
-			System.out.println("++++++++2");
+			System.out.println("++++details post++++2");
 			detailsModel detailsM = new detailsModel();
 			
 			String uriString ="jdbc:mysql://localhost:3306/jsp_test?useSSL=true";
 			String userString ="root";
-			String password ="abc110";
+			String password ="312312";
 			Connection connection = (Connection) DriverManager.getConnection(uriString, userString, password);
 			
-			String str1 = "15543563223";
+			HttpSession session =request.getSession();
+			loginModel mmmd =(loginModel) session.getAttribute("login");
+			
+			
+			
+			System.out.print(mmmd.getUserID().toString());
 			
 			Statement sql =(Statement) connection.createStatement();
-			ResultSet rs = sql.executeQuery("select * from jsp_test.announces where userID ="+str1);
-			rs.next();
+			ResultSet rs1 = sql.executeQuery("select topicID from jsp_test.announces where userID ="+mmmd.getUserID().toString());
+//			rs1.next();
+	
+			System.out.println("++++++++3"); 
 			
-//			ResultSet title = sql.executeQuery("select carTopic from jsp_test.post_car where userID = 13482031500");
-//			ResultSet userName = sql.executeQuery("select userName from jsp_test.post_car where userID ="+str1);
-//			ResultSet userID = sql.executeQuery("select userID from jsp_test.post_car where userID ="+str1);
-//			ResultSet topicID = sql.executeQuery("select carTopicID from jsp_test.post_car where userID ="+str1);
-//			ResultSet content = sql.executeQuery("select content from jsp_test.post_car where userID ="+str1);
+			int intTopicID = 0;
+			while (rs1.next()) {
+				 
+				int i = Integer.parseInt(rs1.getString("topicID"));
+				System.out.print("======"+i+"=======");
+				if (i>intTopicID) {
+					
+					intTopicID = i;
+					System.out.print("======"+intTopicID+"=======");
+				}
+			}
 			
-//			title.next();
-//			userName.next();
-//			userID.next();
-//			topicID.next();
-//			content.next();
+			String topicID = Integer.toString(intTopicID);
+			System.out.println("最大topicID"+topicID);
+			ResultSet rs2 = sql.executeQuery("select * from jsp_test.announces where topicID ="+topicID);
+			if (rs2.next()) {
+			detailsM.setTitle(rs2.getString("title"));
+			detailsM.setUserName(rs2.getString("userName"));
+			detailsM.setUserID(rs2.getString("userID"));
+			detailsM.setTopicID(topicID);
+			detailsM.setContent(rs2.getString("content"));
+			detailsM.setType(rs2.getString("type"));
+			detailsM.setAnnouncesTime(rs2.getString("announcesTime").toString());
+			}else{
+				System.out.print("data 不存在");
+			}
 			
-			System.out.println("++++++++3");
-			
-//			System.out.println(userID);
-//			System.out.println("===== : "+title);
-			
-			detailsM.setTitle(rs.getString("title"));
-			detailsM.setUserName(rs.getString("userName"));
-			detailsM.setUserID(rs.getString("userID"));
-			detailsM.setTopicID(rs.getString("topicID"));
-			detailsM.setContent(rs.getString("content"));
-			detailsM.setType(rs.getString("type"));
-			
-			System.out.println("===== : "+rs.getString("title"));
-			System.out.println("===== : "+rs.getString("content"));
+			System.out.println("===== : "+rs2.getString("title"));
+			System.out.println("===== : "+rs2.getString("content"));
+			System.out.println("===== : "+rs2.getString("announcesTime"));
 			
 			request.setAttribute("detailsM", detailsM);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("replySer");
 			dispatcher.forward(request, response);
-			
+			return;
 			
 		} catch (Exception e) {
 			// TODO: handle exception
